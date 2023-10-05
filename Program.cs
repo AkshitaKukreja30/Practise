@@ -20,7 +20,7 @@ namespace Practise
         private static IServiceProvider ConfigureServices()
         {
             var serviceProvider = new ServiceCollection()
-                       .AddTransient<IProblems, ReverseCompleteSentence>()
+                       .AddTransient<IProblems, Anagrams>()
                        .BuildServiceProvider();
             return serviceProvider;
         }
