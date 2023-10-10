@@ -20,7 +20,7 @@ namespace Practise
         private static IServiceProvider ConfigureServices()
         {
             var serviceProvider = new ServiceCollection()
-                       .AddTransient<IProblems, FirstIndexOfStringWithinAnother>()
+                       .AddTransient<IProblems, LongestSubstringWithoutRepeatingChars>()
                        .BuildServiceProvider();
             return serviceProvider;
         }
