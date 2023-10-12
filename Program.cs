@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Practise.Interfaces;
 using Practise.Services;
-
+using Practise.Services.ArrayProblems;
 
 namespace Practise
 {
@@ -19,9 +19,14 @@ namespace Practise
 
         private static IServiceProvider ConfigureServices()
         {
+            //var serviceProvider = new ServiceCollection()
+            //           .AddTransient<IProblems, LongestSubstringWithoutRepeatingChars>()
+            //           .BuildServiceProvider();
+
             var serviceProvider = new ServiceCollection()
-                       .AddTransient<IProblems, LongestSubstringWithoutRepeatingChars>()
+                       .AddTransient<IProblems, MaximumSumOfSubarrayOfFixedSizeK>()
                        .BuildServiceProvider();
+
             return serviceProvider;
         }
     }
