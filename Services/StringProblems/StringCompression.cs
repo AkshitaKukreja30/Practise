@@ -18,23 +18,53 @@ namespace Practise.Services
 
         private string FindCompressedString(string str)
         {
-            string compressedString = string.Empty;
-            int counter = 1;
+            var charArray = str.ToCharArray();
 
-            for(int i = 0; i <= str.Length-1; i++)
+            Array.Sort(charArray);
+            string alphabeticalOrderedString = new string(charArray);
+
+            string compressedString = string.Empty;
+
+            foreach (char ch in alphabeticalOrderedString)
             {
-                if (i == str.Length - 1 || str[i] != str[i + 1])
+                if (compressedString.Contains(ch))
                 {
-                    compressedString = compressedString + str[i] + counter;
-                    counter = 1;
+                    continue;
                 }
-                else
+
+                var count = alphabeticalOrderedString.Where(x => x == ch).Count();
+                compressedString += $"{ch}{count}";
+            }
+
+            return compressedString;
+        }
+
+
+        private string FindCompressedStringV2(string str) 
+        {
+            var charArray = str.ToCharArray();
+
+            Array.Sort(charArray);
+
+            string alphabeticalOrderedString = new string(charArray);
+
+            Dictionary<char, int> myDictonary = new Dictionary<char, int>();
+
+            foreach (char ch in alphabeticalOrderedString)
+            {
+                if (!myDictonary.ContainsKey(ch))
                 {
-                    counter++;
+                    myDictonary.Add(ch, str.Where(x => x == ch).Count());
                 }
             }
-            
-            return compressedString;
+
+            string finalOutput = string.Empty;
+            foreach (var kvp in myDictonary)
+            {
+                finalOutput = finalOutput + kvp.Key.ToString() + kvp.Value.ToString();
+            }
+
+            return finalOutput;
         }
     }
 }

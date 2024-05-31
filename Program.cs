@@ -19,13 +19,13 @@ namespace Practise
 
         private static IServiceProvider ConfigureServices()
         {
-            //var serviceProvider = new ServiceCollection()
-            //           .AddTransient<IProblems, LongestSubstringWithoutRepeatingChars>()
-            //           .BuildServiceProvider();
-
             var serviceProvider = new ServiceCollection()
-                       .AddTransient<IProblems, MaximumSumOfSubarrayOfFixedSizeK>()
+                       .AddTransient<IProblems, SnakeCaseToPascal>()
                        .BuildServiceProvider();
+
+            //var serviceProvider = new ServiceCollection()
+            //           .AddTransient<IProblems, MaximumSumOfSubarrayOfFixedSizeK>()
+            //           .BuildServiceProvider();
 
             return serviceProvider;
         }
