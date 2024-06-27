@@ -24,7 +24,7 @@ namespace Practise
             //           .BuildServiceProvider();
 
             var serviceProvider = new ServiceCollection()
-                       .AddTransient<IProblems, Majority_Element>()
+                       .AddTransient<IProblems, HCF>()
                        .BuildServiceProvider();
 
             return serviceProvider;
