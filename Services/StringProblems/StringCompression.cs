@@ -16,6 +16,11 @@ namespace Practise.Services
             Console.WriteLine(compressedString);
         }
 
+        /// <summary>
+        /// USE THIS ONE : OPTIMAL
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
         private string FindCompressedString(string str)
         {
             var charArray = str.ToCharArray();

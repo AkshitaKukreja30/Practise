@@ -20,7 +20,7 @@ namespace Practise.Services
         {
             var t = input1.ToCharArray();
 
-            for (int i = 0; i < t.Length; i++)
+            for (int i = 0; i < t.Length - 1; i++)
             {
                 if (t[i] == '_')
                 {
