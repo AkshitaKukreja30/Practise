@@ -111,16 +111,20 @@ namespace Practise.Services
 
             else     // convert to snake case -> this_is_a_variable->thisIsAVariable
             {
-                var charArray = inputString.ToCharArray();
+                bool toUpper = false;
 
-                for (int i = 0; i < inputString.Length; i++)
+                for(int i=0; i< inputString.Length; i++)
                 {
-                    if (charArray[i] == '_' && i+1 < inputString.Length)
+                    if (inputString[i] == '_' && i>0)
                     {
-                        charArray[i+1] = char.ToUpper(charArray[i+1]);
+                        toUpper = true;
+                    }
+                    else
+                    {
+                        result += toUpper ? char.ToUpper(inputString[i]) : inputString[i];
+                        toUpper = false;
                     }
                 }
-                result = new string(charArray.Where(x => x != '_').ToArray());
                 return result;
             }
 
