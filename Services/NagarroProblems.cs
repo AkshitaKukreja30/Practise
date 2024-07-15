@@ -29,7 +29,8 @@ namespace Practise.Services
             Console.WriteLine(ReturnCorrectVariableName("thisIsAVariable")); //this_is_a_variable
             Console.WriteLine(ReturnCorrectVariableName("aNA")); //a_n_a
             Console.WriteLine(ReturnCorrectVariableName("this_is_a_variable_v_")); //thisIsAVariableV
-
+            Console.WriteLine(ReturnCorrectVariableName("_randomName")); //randomName
+            Console.WriteLine(ReturnCorrectVariableName("Name_Of")); //name_of : NOT WORKING
 
 
         }
@@ -115,9 +116,12 @@ namespace Practise.Services
 
                 for(int i=0; i< inputString.Length; i++)
                 {
-                    if (inputString[i] == '_' && i>0)
+                    if (inputString[i] == '_')
                     {
-                        toUpper = true;
+                        if(i> 0)
+                        {
+                            toUpper = true;
+                        }
                     }
                     else
                     {
