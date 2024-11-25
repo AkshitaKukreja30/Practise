@@ -32,6 +32,12 @@ namespace Practise.Services
             Console.WriteLine(ReturnCorrectVariableName("_randomName")); //randomName
             Console.WriteLine(ReturnCorrectVariableName("Name_Of")); //name_of : NOT WORKING
 
+            Console.WriteLine(NumOfPossibleDecodings("121"));   // Output: 3 POSSIBLE DECODINGS = 'ABA', 'AU' and 'LA'
+            Console.WriteLine(NumOfPossibleDecodings("12345")); // Output: 3 POSSIBLE DECODINGS = 'ABCDE', 'LCDE' and 'AWDE'   
+
+            Console.WriteLine(NumOfPossiblePairs(3));   // Output: 5
+            Console.WriteLine(NumOfPossiblePairs(4));   // Output: 9
+
 
         }
 
@@ -136,8 +142,62 @@ namespace Practise.Services
         }
 
         // Num of Decoding
+        public int NumOfPossibleDecodings(string input)
+        {
+            if (string.IsNullOrEmpty(input) || input[0] == '0') return 0;
+
+            int n = input.Length;
+            int prev1 = 1, prev2 = input[0] != '0' ? 1 : 0;
+
+            for (int i = 2; i <= n; i++)
+            {
+                int current = 0;
+                int oneDigit = int.Parse(input.Substring(i - 1, 1));
+                int twoDigits = int.Parse(input.Substring(i - 2, 2));
+                if (oneDigit >= 1) current += prev2;
+                if (twoDigits >= 10 && twoDigits <= 26) current += prev1;
+                prev1 = prev2;
+                prev2 = current;
+            }
+
+            return prev2;
+        }
 
         // CAT Pairs: HCF
+
+        public int NumOfPossiblePairs(int N)
+        {
+            int count = 0;
+
+            // Iterate through all possible values of x from 0 to N-1
+            for (int x = 0; x < N; x++)
+            {
+                // Iterate through all possible values of y from 0 to N-1
+                for (int y = 0; y < N; y++)
+                {
+                    // Check if the HCF (Highest Common Factor) of x and y is 1
+                    if (GCD(x, y) == 1)
+                    {
+                        count++;
+                    }
+                }
+            }
+
+            return count;
+        }
+
+        public int GCD(int a, int b)
+        {
+            // Loop until b becomes 0
+            while (b != 0)
+            {
+                int temp = b;
+                b = a % b;  // b is Remainder of a and b
+                a = temp;
+            }
+            // Return the final value of a, which is the GCD
+            return a;
+        }
     }
 
     }
