@@ -14,6 +14,7 @@ namespace Practise.Services
     {
         public void Execute()
         {
+
             CompressedString("babdc"); // Output: a1b2c1d1
             CompressedString("phqgh");  // Output : g1h2p1q1
 
@@ -88,6 +89,72 @@ namespace Practise.Services
 
         }
 
+
+
+        public static string ConvertCamelToSnake(string input)
+        {
+            string result = string.Empty;
+
+            input = input.Replace("_","");
+
+            // Traverse each character
+            foreach (char c in input)
+            {
+                if (char.IsUpper(c))
+                {
+                    // Insert an underscore before an uppercase letter and convert it to lowercase
+                    result += "_" + char.ToLower(c);
+                }
+                else
+                {
+                    result += c;
+                }
+            }
+
+            // Remove the leading underscore if it exists
+            if (result.StartsWith("_"))
+            {
+                result = result.Substring(1);
+            }
+
+            return result;
+        }
+
+
+
+        public static string ConvertSnakeToCamel(string input)
+        {
+            string result = string.Empty;
+            bool isNextUpper = false;
+
+            // Remove leading and trailing underscores
+            input = input.Trim('_');
+
+            foreach (char c in input)
+            {
+                if (c == '_')
+                {
+                    // The next character should be uppercase
+                    isNextUpper = true;
+                }
+                else
+                {
+                    // If flag is set, convert the letter to uppercase, else keep it as it is
+                    if (isNextUpper)
+                    {
+                        result += char.ToUpper(c); // Convert next letter to uppercase
+                        isNextUpper = false; // Reset flag
+                    }
+                    else
+                    {
+                        result += c; // Keep letter as it is
+                    }
+                }
+            }
+
+            return result;
+        }
+
         /// <summary>
         /// this_is_a_variable->thisIsAVariable
         /// modify_VariableName->modifyVariableName
@@ -95,10 +162,13 @@ namespace Practise.Services
         /// </summary>
         /// <param name="inputString"></param>
         /// <returns></returns>
-        public string ReturnCorrectVariableName(string inputString)
+        public string ReturnCorrectVariableName(string input)
         {
-            int indexOfUpperCase = inputString.IndexOf(inputString.FirstOrDefault(x => char.IsUpper(x))) ;
-            int indexOfUnderScore = inputString.IndexOf('_');
+            // Trim leading/trailing spaces and underscores
+            input = input.Trim();
+
+            int indexOfUpperCase = input.IndexOf(input.FirstOrDefault(x => char.IsUpper(x)));
+            int indexOfUnderScore = input.IndexOf('_');
 
             string result = string.Empty;
 
@@ -107,37 +177,14 @@ namespace Practise.Services
 
             int min = int.Min(indexOfUpperCase, indexOfUnderScore);
 
-            if(min == indexOfUpperCase) // convert to camel case -> thisIsAVariable->this_is_a_variable -> thisIsAN -> this_is_a_n
+            if (min == indexOfUpperCase)
             {
-                for(int i =0; i< inputString.Length; i++)
-                {
-                    result = char.IsUpper(inputString[i]) ? result + "_" + char.ToLower(inputString[i]) : result + inputString[i];
-                }
-                return result;
+                return ConvertCamelToSnake(input);
             }
-
-            else     // convert to snake case -> this_is_a_variable->thisIsAVariable
+            else
             {
-                bool toUpper = false;
-
-                for(int i=0; i< inputString.Length; i++)
-                {
-                    if (inputString[i] == '_')
-                    {
-                        if(i> 0)
-                        {
-                            toUpper = true;
-                        }
-                    }
-                    else
-                    {
-                        result += toUpper ? char.ToUpper(inputString[i]) : inputString[i];
-                        toUpper = false;
-                    }
-                }
-                return result;
+                return ConvertSnakeToCamel(input);
             }
-
 
         }
 
